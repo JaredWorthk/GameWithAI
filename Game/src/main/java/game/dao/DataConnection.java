@@ -6,15 +6,15 @@ import java.sql.SQLException;
 
 public class DataConnection {
     private String driver = "com.mysql.cj.jdbc.Driver";
-    private String url = "jdbc:mysql://localhost:3306/gamehubdb";
-    private String user = "root";
-    private String password = "";
+    private static final String DB_URL = System.getenv("DB_URL");
+    private static final String DB_USER = System.getenv("DB_USER");
+    private static final String DB_PASS = System.getenv("DB_PASS");
 
     public Connection getConnection() {
         Connection conn = null;
         try {
             Class.forName(driver);
-            conn = DriverManager.getConnection(url, user, password);
+            conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
             System.out.println("Connected to database");
         } catch (ClassNotFoundException e) {
             System.out.println("Driver not found");
