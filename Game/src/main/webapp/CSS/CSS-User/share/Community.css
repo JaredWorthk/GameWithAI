@@ -1,0 +1,252 @@
+/* --- BỐ CỤC CHUNG TRANG CỘNG ĐỒNG --- */
+.community-container {
+    max-width: 700px; /* Nhỏ hơn Profile một chút để đọc text cho tập trung */
+    width: 100%;
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+    overflow-y: scroll;
+    padding-right: 15px;
+}
+
+/* Ẩn thanh cuộn cho đẹp */
+.community-container::-webkit-scrollbar { width: 6px; }
+.community-container::-webkit-scrollbar-thumb { background: #444455; border-radius: 10px; }
+
+/* --- 2 NÚT CHUYỂN TAB --- */
+.comm-nav {
+    display: flex;
+    border-bottom: 1px solid #444455;
+    margin-bottom: 20px;
+    position: sticky;
+    top: 0;
+    background: #1e1e24; /* Che các bài viết cuộn bên dưới */
+    z-index: 10;
+    padding-top: 10px;
+}
+
+.comm-tab {
+    flex: 1;
+    background: transparent;
+    color: #777788;
+    border: none;
+    padding: 15px 0;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.comm-tab.active {
+    color: #ffffff;
+    border-bottom: 3px solid #00d2ff;
+}
+
+.comm-content {
+    display: none;
+    animation: fadeIn 0.4s ease;
+}
+
+.comm-content.active {
+    display: block;
+}
+
+/* =========================================
+   STYLE 1: UPDATE (FACEBOOK STYLE)
+   ========================================= */
+.fb-post {
+    background: #2b2b36;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.fb-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.fb-avatar {
+    width: 45px;
+    height: 45px;
+    background: #1e1e24;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #00d2ff;
+    font-size: 20px;
+}
+
+.fb-author h4 {
+    color: #ffffff;
+    margin-bottom: 3px;
+    font-size: 16px;
+}
+
+.fb-author span {
+    color: #777788;
+    font-size: 12px;
+}
+
+.fb-body p {
+    color: #e0e0e0;
+    line-height: 1.5;
+    margin-bottom: 15px;
+    font-size: 15px;
+}
+
+.fb-image {
+    width: 100%;
+    height: 300px;
+    background: #444455; /* Placeholder cho ảnh */
+    border-radius: 8px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #777788;
+}
+
+.fb-actions {
+    display: flex;
+    border-top: 1px solid #444455;
+    padding-top: 15px;
+}
+
+.fb-action-btn {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #b2b2bc;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 5px;
+    transition: background 0.2s;
+}
+
+.fb-action-btn:hover {
+    background: rgba(255,255,255,0.05);
+    color: #00d2ff;
+}
+
+/* =========================================
+   STYLE 2: COMMUNITY (THREADS STYLE)
+   ========================================= */
+.thread-post {
+    display: flex;
+    gap: 15px;
+    padding: 15px 0;
+    border-bottom: 1px solid #333340;
+}
+
+.thread-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.thread-avatar {
+    width: 40px;
+    height: 40px;
+    background: #1e1e24;
+    border: 1px solid #444455;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #b2b2bc;
+    z-index: 2;
+}
+
+/* Sợi chỉ dọc nối các bài post (Đặc trưng của Threads) */
+.thread-line {
+    width: 2px;
+    flex: 1;
+    background: #333340;
+    margin-top: 8px;
+}
+
+.thread-right {
+    flex: 1;
+    padding-bottom: 10px;
+}
+
+.thread-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.thread-header h4 {
+    color: #ffffff;
+    font-size: 15px;
+}
+
+.thread-header span {
+    color: #777788;
+    font-size: 13px;
+}
+
+.thread-body {
+    color: #e0e0e0;
+    font-size: 15px;
+    line-height: 1.4;
+    margin-bottom: 12px;
+}
+
+.thread-actions {
+    display: flex;
+    gap: 20px;
+}
+
+.thread-actions i {
+    color: #777788;
+    cursor: pointer;
+    font-size: 16px;
+    transition: color 0.2s;
+}
+
+.thread-actions i:hover {
+    color: #ffffff;
+}
+
+/* Form nhập liệu của Threads */
+.thread-input-box {
+    display: flex;
+    gap: 15px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #444455;
+    margin-bottom: 15px;
+}
+
+.thread-input-box input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-size: 15px;
+    outline: none;
+}
+
+.thread-input-box input::placeholder {
+    color: #777788;
+}
+
+.btn-post {
+    background: transparent;
+    color: #00d2ff;
+    border: 1px solid #00d2ff;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.btn-post:hover { background: rgba(0,210,255,0.1); }

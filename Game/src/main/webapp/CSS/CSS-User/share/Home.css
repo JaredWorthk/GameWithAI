@@ -1,0 +1,225 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: #1e1e24;
+    color: #ffffff;
+    height: 100vh; /* 1. Khóa chiều cao bằng đúng 1 màn hình */
+    overflow: hidden; /* 2. Cắt bỏ hoàn toàn thanh cuộn của trình duyệt */
+    display: flex;
+    flex-direction: column; /* Xếp Header và Nội dung theo cột dọc */
+}
+
+.container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px 20px 0 20px; /* Bỏ padding đáy để thanh cuộn chạm sát mép dưới */
+    flex: 1; /* 3. Tự động giãn ra chiếm trọn phần không gian dưới Header */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Tránh nội dung tràn ra khỏi container */
+}
+
+.hero-section {
+    text-align: center;
+    margin-bottom: 30px; /* Thu nhỏ khoảng cách lại một chút cho gọn */
+    flex-shrink: 0; /* Cấm bóp méo Banner khi màn hình nhỏ */
+}
+
+.hero-section h1 {
+    font-size: 40px;
+    color: #ffffff;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+}
+
+.hero-section h1 span {
+    color: #00d2ff;
+}
+
+.hero-section p {
+    color: #b2b2bc;
+    font-size: 18px;
+}
+
+/* --- BỐ CỤC 2 CỘT CHÍNH --- */
+.main-layout {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex: 1; /* 4. Khối này chiếm toàn bộ chiều cao còn lại của container */
+    overflow: hidden; /* Bắt buộc phải có để ép game-grid cuộn bên trong */
+    padding-bottom: 20px; /* Khoảng trống ở đáy cho đẹp */
+}
+
+/* --- CỘT TRÁI: LƯỚI GAME CÓ THANH CUỘN RIÊNG --- */
+.game-grid {
+    flex: 1;
+    display: grid;
+    /* SỬA Ở ĐÂY: Dùng auto-fill để thẻ không bị phình to khi có ít game, thu nhỏ size xuống 220px */
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px; /* Thu hẹp khoảng cách giữa các thẻ từ 30px xuống 20px */
+    align-content: start;
+    overflow-y: scroll;
+    padding-right: 15px;
+    padding-bottom: 20px;
+}
+
+/* Tùy chỉnh làm đẹp thanh cuộn (Chỉ áp dụng cho Webkit như Chrome, Edge, Safari) */
+.game-grid::-webkit-scrollbar {
+    width: 8px; /* Bề ngang thanh cuộn nhỏ gọn */
+}
+
+.game-grid::-webkit-scrollbar-track {
+    background: #1e1e24; /* Màu nền rãnh trượt trùng màu background */
+    border-radius: 10px;
+}
+
+.game-grid::-webkit-scrollbar-thumb {
+    background: #444455; /* Màu con chạy mặc định */
+    border-radius: 10px;
+}
+
+.game-grid::-webkit-scrollbar-thumb:hover {
+    background: #00d2ff; /* Sáng màu Xanh Neon khi đưa chuột vào con chạy */
+}
+
+/* Các thẻ Game giữ nguyên */
+.game-card {
+    background: #2b2b36;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.game-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
+}
+
+.game-thumb {
+    height: 140px; /* SỬA Ở ĐÂY: Giảm chiều cao ảnh từ 180px xuống 140px cho đỡ bị lêu nghêu */
+    width: 100%;
+    background: linear-gradient(45deg, #1cb5e0, #000851);
+}
+
+.chess-bg {
+    background: linear-gradient(45deg, #ff416c, #ff4b2b);
+}
+
+.game-info {
+    padding: 15px; /* SỬA Ở ĐÂY: Giảm khoảng cách viền trong từ 20px xuống 15px */
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.game-title {
+    font-size: 18px; /* SỬA Ở ĐÂY: Thu nhỏ font chữ tiêu đề từ 22px xuống 18px */
+    margin-bottom: 5px;
+    color: #ffffff;
+    /* Mẹo phụ: Cắt chữ nếu tên game quá dài */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.game-cat {
+    font-size: 12px; /* Thu nhỏ text danh mục */
+    color: #ff4757;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+.play-btn {
+    margin-top: auto;
+    text-align: center;
+    background: #ff4757;
+    color: white;
+    text-decoration: none;
+    padding: 10px; /* SỬA Ở ĐÂY: Giảm độ dày của nút bấm */
+    border-radius: 8px;
+    font-size: 13px; /* Thu nhỏ chữ trong nút */
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: background 0.3s ease;
+}
+
+.play-btn:hover {
+    background: #ff6b81;
+}
+
+/* --- CỘT PHẢI: THANH DANH MỤC (SIDEBAR) ĐỨNG IM --- */
+.categories.sidebar {
+    width: 260px;
+    flex-shrink: 0;
+    background: #2b2b36;
+    padding: 25px 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    height: fit-content; /* 6. Chỉ cao bằng đúng nội dung bên trong nó */
+    /* Đã xóa position: sticky vì không còn cần thiết nữa */
+}
+
+.categories.sidebar h3 {
+    color: #ffffff;
+    font-size: 18px;
+    margin-bottom: 10px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #444455;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.cat-btn {
+    width: 100%;
+    text-align: left;
+    background: transparent;
+    color: #b2b2bc;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cat-btn.active, .cat-btn:hover {
+    background: #3a3a48;
+    color: #00d2ff;
+    transform: translateX(5px);
+}
+
+.cat-btn.active {
+    border-left: 4px solid #00d2ff;
+    background: rgba(0, 210, 255, 0.1);
+}
+
+/* --- HIỆU ỨNG CHUYỂN TRANG MƯỢT MÀ (AJAX) --- */
+#main-content {
+    transition: opacity 0.3s ease-in-out;
+    opacity: 1; /* Mặc định là sáng rõ */
+}
+
+/* Class này sẽ được JS gắn vào trước khi bóc ruột, làm trang mờ dần đi */
+#main-content.fade-out {
+    opacity: 0;
+}

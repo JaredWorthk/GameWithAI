@@ -1,0 +1,28 @@
+body {
+    background: #1e1e24;
+    color: white;
+    text-align: center;
+    font-family: 'Segoe UI', sans-serif;
+    padding-top: 100px;
+}
+
+h1 {
+    font-size: 80px;
+    color: #ff4757;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 20px;
+    color: #b2b2bc;
+    margin-bottom: 30px;
+}
+
+a {
+    text-decoration: none;
+    background: #00d2ff;
+    color: #1e1e24;
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-weight: bold;
+}

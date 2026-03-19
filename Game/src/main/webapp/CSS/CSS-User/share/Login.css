@@ -1,0 +1,202 @@
+/* --- 1. Cấu hình chung cho trang --- */
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Tính toán kích thước bao gồm cả viền padding */
+    font-family: 'Segoe UI', sans-serif; /* Font chữ hiện đại */
+
+    /* Màu nền: Dùng Gradient nhẹ nhàng thay vì 1 màu chói */
+    background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+
+    /* Căn giữa khung Login ra giữa màn hình */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Chiều cao tối thiểu bằng màn hình */
+}
+
+/* --- 2. Khung chứa form (Cái thẻ trắng ở giữa) --- */
+.login-container {
+    background: #ffffff; /* Nền trắng */
+    padding: 40px; /* Khoảng cách nội dung so với viền */
+    border-radius: 10px; /* Bo tròn góc */
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2); /* Đổ bóng tạo chiều sâu 3D */
+    width: 320px; /* Chiều rộng cố định */
+}
+
+.login-container h2 {
+    margin: 0 0 30px; /* Reset margin, chỉ giữ margin dưới */
+    padding: 0;
+    color: #333; /* Màu chữ tiêu đề đen xám */
+    text-align: center;
+}
+
+/* --- 3. Cấu hình Form và Input Group --- */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Khoảng cách giữa các ô input */
+}
+
+.input-group {
+    position: relative; /* QUAN TRỌNG: Làm mốc tọa độ cho label con */
+    width: 100%;
+}
+
+/* --- 4. Style cho ô nhập liệu (Input) --- */
+.input-group input {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #333; /* Màu chữ khi người dùng nhập */
+    margin-bottom: 5px;
+    border: none;
+    border-bottom: 1px solid #999; /* Viền dưới màu xám nhạt */
+    outline: none; /* Bỏ viền xanh mặc định của trình duyệt */
+    background: transparent;
+}
+
+/* --- 5. Style cho Nhãn (Label) --- */
+.input-group label {
+    position: absolute; /* QUAN TRỌNG: Để nằm đè lên input */
+    top: 0;
+    left: 0;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #999; /* Màu xám khi chưa bấm vào */
+    pointer-events: none; /* QUAN TRỌNG: Để click xuyên qua label vào input */
+    transition: 0.5s; /* Thời gian hiệu ứng bay lên */
+}
+
+/* --- 6. HIỆU ỨNG MAGIC (Floating Label) --- */
+/* Khi input được focus HOẶC khi input đã có dữ liệu (valid) */
+.input-group input:focus ~ label,
+.input-group input:valid ~ label {
+    top: -20px; /* Bay lên trên */
+    font-size: 12px; /* Nhỏ lại */
+    color: #03a9f4; /* Đổi màu xanh dương */
+}
+
+/* Đổi màu gạch chân khi focus */
+.input-group input:focus {
+    border-bottom: 2px solid #03a9f4;
+}
+
+/* --- 7. Style cho nút bấm --- */
+button {
+    background-color: #03a9f4;
+    border: none;
+    padding: 10px 20px;
+    color: white;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+button:hover {
+    background-color: #0288d1; /* Màu đậm hơn khi di chuột */
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* --- 8. Class ẩn hiện --- */
+.hidden {
+    display: none;
+}
+
+/* 1. ĐỊNH VỊ KHỐI CHỨA NÚT HOME */
+.home-wrapper {
+    position: fixed; /* Bắt chết vị trí, cuộn chuột nó cũng không chạy đi đâu */
+    top: 20px; /* Cách mép trên màn hình 20px */
+    left: 20px; /* Cách mép trái màn hình 20px */
+    z-index: 9999; /* Đảm bảo nó luôn nổi lên trên cùng, không bị game đè lên */
+}
+
+/* 2. TẠO HÌNH DÁNG NÚT BẤM (Nút Tròn) */
+.home-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background: #2b2b36; /* Trùng màu nền xám đen của các thẻ Game */
+    color: #b2b2bc; /* Màu icon xám nhạt */
+    border-radius: 50%; /* Ép thành hình tròn xoe hoàn hảo */
+    text-decoration: none; /* Bỏ gạch chân của thẻ a */
+    font-size: 22px; /* Kích thước icon ngôi nhà */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Đổ bóng tạo độ sâu 3D */
+    border: 2px solid transparent;
+    transition: all 0.3s ease; /* Chuyển động mượt trong 0.3s */
+}
+
+/* 3. HIỆU ỨNG KHI RÊ CHUỘT VÀO (HOVER) */
+.home-btn:hover {
+    color: #00d2ff; /* Icon đổi sang xanh Neon bừng sáng */
+    border-color: #00d2ff; /* Viền xanh Neon */
+    background: #1e1e24; /* Nền tối lại 1 chút để làm nổi viền */
+    transform: translateY(-3px) scale(1.05); /* Nảy lên 3px và phóng to ra một tí */
+    box-shadow: 0 5px 15px rgba(0, 210, 255, 0.4); /* Bóng đổ cũng phát sáng xanh luôn */
+}
+
+/* Hiệu ứng khi nhấn chuột lún xuống */
+.home-btn:active {
+    transform: translateY(0) scale(0.95);
+}
+
+/* --- 9. Dải phân cách "Hoặc" --- */
+.separator {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #999;
+    margin: 10px 0; /* Khoảng cách trên dưới */
+}
+
+/* Vẽ 2 đường kẻ ngang 2 bên */
+.separator::before,
+.separator::after {
+    content: '';
+    flex: 1; /* Chiếm hết khoảng trống còn lại */
+    border-bottom: 1px solid #ddd; /* Màu đường kẻ */
+}
+
+/* Khoảng cách chữ "Hoặc" với 2 đường kẻ */
+.separator span {
+    padding: 0 15px;
+    font-size: 14px;
+}
+
+/* --- 10. Nút Đăng nhập Google --- */
+.btn-google {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff; /* Nền trắng */
+    color: #333; /* Chữ xám đen */
+    border: 1px solid #ccc; /* Viền mỏng */
+    padding: 10px 20px;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 5px;
+    text-decoration: none; /* Bỏ gạch chân mặc định của thẻ a */
+    transition: 0.3s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* Bóng nhẹ */
+}
+
+/* Khống chế kích thước Logo Google */
+.btn-google img {
+    width: 20px;
+    height: 20px;
+    margin-right: 12px; /* Cách chữ 12px */
+}
+
+/* Hiệu ứng khi rê chuột vào nút Google */
+.btn-google:hover {
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(-1px); /* Nảy nhẹ lên 1 xíu */
+}

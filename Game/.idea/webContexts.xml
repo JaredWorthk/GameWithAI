@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebContextManager">
+    <option name="state">
+      <map>
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/GAME/snake/index.html" value="file://$PROJECT_DIR$/src/main/webapp/GAME/snake" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/JSP/JSP-User/Main-content.jsp" value="file://$PROJECT_DIR$/src/main/webapp/JSP/JSP-User" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/JSP/JSP-User/share/Header.jsp" value="file://$PROJECT_DIR$/src/main/webapp/JSP/JSP-User/share" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/JSP/share/Header.jsp" value="file://$PROJECT_DIR$/src/main/webapp/JSP/share" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/index.jsp" value="file://$PROJECT_DIR$/src/main/webapp" />
+      </map>
+    </option>
+  </component>
+</project>

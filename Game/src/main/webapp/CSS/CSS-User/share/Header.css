@@ -1,0 +1,224 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+}
+
+body {
+    background: #1e1e24;
+}
+
+.header {
+    display: flex;
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+    justify-content: space-between;
+    align-items: center;
+    background: #2b2b36;
+    padding: 15px 40px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.header .logo-box {
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.header h2 {
+    color: #00d2ff;
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.header .navbar {
+    display: flex;
+    gap: 40px;
+}
+
+.header .navbar a {
+    color: #b2b2bc;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.header .navbar a:hover,
+.header .navbar a.active {
+    color: #00d2ff;
+}
+
+.header .navbar a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #00d2ff;
+    transition: width 0.3s ease;
+}
+
+.header .navbar a:hover::after,
+.header .navbar a.active::after {
+    width: 100%;
+}
+
+.header .user-info {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 25px;
+}
+
+.header p {
+    color: #b2b2bc;
+    font-size: 16px;
+}
+
+.header p span {
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.header button {
+    background: #ff4757;
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.header button:hover {
+    background: #ff6b81;
+    box-shadow: 0 0 15px rgba(255, 71, 87, 0.6);
+    transform: translateY(-2px);
+}
+
+.header button:active {
+    transform: translateY(1px);
+}
+
+.header span {
+    color: white;
+}
+
+/* 1. KHỐI BỌC NGOÀI CÙNG */
+.user-dropdown-wrapper {
+    position: relative; /* Làm điểm neo để cái menu xổ xuống bám vào */
+    display: inline-block;
+}
+
+/* 2. CHỈNH LẠI CỤM ICON VÀ TÊN NẰM NGANG */
+.user-icon {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 30px;
+    transition: background 0.3s ease;
+}
+
+.user-icon:hover {
+    background: rgba(255, 255, 255, 0.05); /* Sáng nhẹ lên khi di chuột */
+}
+
+/* Kế thừa CSS làm cái avatar tròn lúc nãy của bạn */
+.user-icon i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: #2b2b36;
+    color: #00d2ff;
+    border-radius: 50%;
+    font-size: 18px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.user-icon span {
+    color: #ffffff;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+}
+
+/* 3. MENU XỔ XUỐNG */
+.dropdown-menu {
+    display: none; /* Ẩn đi khi chưa click */
+    position: absolute;
+    top: 60px; /* Cách cụm icon phía trên 60px */
+    right: 0; /* Ép sát lề phải cho đẹp */
+    background-color: #2b2b36; /* Tông xuyệt tông màu tối */
+    min-width: 220px; /* Chiều rộng tối thiểu */
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+    border: 1px solid #444455; /* Viền xám mờ */
+    z-index: 9999; /* Luôn nổi trên cùng */
+    overflow: hidden; /* Cắt góc tròn cho các nút bên trong */
+}
+
+/* Class để JS gọi lệnh hiện Menu lên */
+.dropdown-menu.show {
+    display: block;
+    animation: fadeInDown 0.2s ease-out forwards;
+}
+
+/* Hiệu ứng trượt xuống mượt mà */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 4. CÁC NÚT BẤM BÊN TRONG MENU */
+.dropdown-menu .menu-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #b2b2bc;
+    padding: 15px 20px;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: bold;
+    transition: all 0.2s ease;
+}
+
+.dropdown-menu .menu-item:hover {
+    background-color: #3a3a48; /* Sáng lên khi di chuột */
+    color: #00d2ff; /* Chữ chuyển màu xanh Neon */
+}
+
+/* Ưu ái riêng cho nút Đăng xuất thì hiện màu Đỏ San hô */
+.dropdown-menu .menu-item.logout-btn:hover {
+    color: #ff4757;
+}
+
+/* 5. ĐƯỜNG KẺ NGANG */
+.dropdown-menu .divider {
+    height: 1px;
+    background-color: #444455;
+    margin: 4px 0;
+}

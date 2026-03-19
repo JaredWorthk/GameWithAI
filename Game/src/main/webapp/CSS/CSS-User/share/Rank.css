@@ -1,0 +1,429 @@
+/* --- RESET CƠ BẢN --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    background: #1e1e24;
+    color: #ffffff;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+#rank-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    height: 100%;
+}
+
+.rank-container {
+    max-width: 900px;
+    width: 100%;
+    margin: 20px auto 0 auto;
+    padding: 0 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+}
+
+/* --- HEADER & BỘ LỌC --- */
+.rank-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    flex-shrink: 0;
+}
+
+.rank-title {
+    font-size: 28px;
+    color: #ffd700;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+}
+
+/* --- KHU VỰC CUỘN --- */
+.rank-scroll-area {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 15px;
+    position: relative;
+
+    /* THẦN CHÚ CHỐNG TRÀN FLEXBOX: Ép nó co lại vừa màn hình */
+    min-height: 0;
+}
+
+.rank-scroll-area::-webkit-scrollbar {
+    width: 6px;
+}
+
+.rank-scroll-area::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.rank-scroll-area::-webkit-scrollbar-thumb {
+    background: #444455;
+    border-radius: 10px;
+}
+
+/* --- BỤC VINH QUANG (PODIUM) --- */
+.podium {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 12px;
+    margin-bottom: 25px;
+    margin-top: 25px;
+}
+
+.podium-item {
+    background: #2b2b36;
+    border-radius: 12px 12px 5px 5px;
+    padding: 15px 10px 10px 10px;
+    text-align: center;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s;
+}
+
+.podium-item:hover {
+    transform: translateY(-5px);
+}
+
+.avatar-wrap {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    background: #1e1e24;
+    z-index: 2;
+}
+
+.rank-badge {
+    margin-top: -10px;
+    margin-bottom: 8px;
+    background: #1e1e24;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 11px;
+    z-index: 3;
+}
+
+.player-name {
+    font-size: 14px;
+    margin-bottom: 3px;
+    color: #ffffff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100px;
+}
+
+.player-score {
+    font-size: 12px;
+    color: #b2b2bc;
+    font-weight: bold;
+}
+
+/* Các tùy chỉnh Vàng Bạc Đồng */
+.podium-item.top-1 {
+    height: 170px;
+    width: 130px;
+    border: 2px solid #ffd700;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+    z-index: 10;
+}
+
+.podium-item.top-1 .avatar-wrap {
+    border: 3px solid #ffd700;
+    color: #ffd700;
+    width: 65px;
+    height: 65px;
+    font-size: 30px;
+}
+
+.podium-item.top-1 .rank-badge {
+    background: #ffd700;
+    color: #000;
+    margin-top: -12px;
+}
+
+.crown-icon {
+    position: absolute;
+    top: -22px;
+    color: #ffd700;
+    font-size: 32px;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+}
+
+.podium-item.top-2 {
+    height: 140px;
+    width: 110px;
+    border: 2px solid #c0c0c0;
+}
+
+.podium-item.top-2 .avatar-wrap {
+    border: 2px solid #c0c0c0;
+    color: #c0c0c0;
+}
+
+.podium-item.top-2 .rank-badge {
+    background: #c0c0c0;
+    color: #000;
+}
+
+.podium-item.top-3 {
+    height: 125px;
+    width: 100px;
+    border: 2px solid #cd7f32;
+    opacity: 0.85;
+}
+
+.podium-item.top-3 .avatar-wrap {
+    border: 2px solid #cd7f32;
+    color: #cd7f32;
+    opacity: 0.8;
+}
+
+.podium-item.top-3 .rank-badge {
+    background: #cd7f32;
+    color: #fff;
+}
+
+/* --- DANH SÁCH TOP 4 - 10 --- */
+.rank-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.rank-list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #2b2b36;
+    padding: 15px 20px;
+    border-radius: 10px;
+    transition: background 0.2s;
+}
+
+.rank-list-item:hover {
+    background: #3a3a48;
+}
+
+.rank-number {
+    font-size: 18px;
+    font-weight: bold;
+    color: #777788;
+    width: 30px;
+}
+
+.rank-list-item .rank-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex: 1;
+}
+
+.rank-list-item .rank-info i {
+    background: #1e1e24;
+    padding: 10px;
+    border-radius: 50%;
+    color: #b2b2bc;
+}
+
+.rank-list-item .rank-score {
+    color: #00d2ff;
+    font-weight: bold;
+}
+
+/* --- THANH GHIM NGƯỜI DÙNG HIỆN TẠI --- */
+.current-user-rank {
+    width: 100%;
+    flex-shrink: 0;
+    margin-top: 10px;
+    background: linear-gradient(90deg, #1cb5e0 0%, #000851 100%);
+    padding: 20px 30px;
+    border-radius: 15px 15px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 -5px 25px rgba(0, 210, 255, 0.4);
+    z-index: 100;
+}
+
+.current-user-rank .rank-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.current-user-rank .rank-number {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffd700;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.current-user-rank .user-detail {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.current-user-rank .user-detail i {
+    font-size: 24px;
+}
+
+.current-user-rank .rank-score {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+/* --- CUSTOM DROPDOWN --- */
+.custom-dropdown {
+    position: relative;
+    width: 200px;
+}
+
+.dropdown-selected {
+    background: #2b2b36;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+}
+
+.dropdown-options {
+    position: absolute;
+    top: 110%;
+    width: 100%;
+    background: #2b2b36;
+    border-radius: 8px;
+    display: none;
+    list-style: none;
+    z-index: 100;
+}
+
+.custom-dropdown.active .dropdown-options {
+    display: block;
+}
+
+.dropdown-options.show {
+    display: block;
+}
+
+.dropdown-options li {
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+.dropdown-options li:hover {
+    background: #3a3a48;
+    color: #00d2ff;
+}
+
+/* --- TRẠNG THÁI LOADING --- */
+.lazy-loading-spinner {
+    text-align: center;
+    color: #00d2ff;
+    padding: 20px;
+}
+
+.btn-load-more {
+    display: block;
+    width: 100%;
+    background: transparent;
+    color: #b2b2bc;
+    border: 1px dashed #444455;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.btn-load-more:hover {
+    color: #00d2ff;
+    border-color: #00d2ff;
+}
+
+.fade-loading {
+    opacity: 0.2;
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out;
+}
+
+#rank-loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 10px 20px;
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* --- TÍNH NĂNG: LÀM MỜ KHI CHƯA ĐĂNG NHẬP --- */
+.auth-blur {
+    filter: blur(6px); /* Làm mờ nhòe danh sách */
+    pointer-events: none; /* Không cho click vào người chơi bên dưới */
+    user-select: none; /* Cấm bôi đen copy */
+    opacity: 0.5;
+}
+
+/* Lớp phủ thông báo đè lên phần bị mờ */
+.login-overlay-msg {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(43, 43, 54, 0.9);
+    padding: 20px 40px;
+    border-radius: 12px;
+    text-align: center;
+    border: 1px solid #00d2ff;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    z-index: 50;
+    width: 80%;
+    max-width: 400px;
+}
+
+.login-overlay-msg h3 {
+    color: #ffd700;
+    margin-bottom: 10px;
+}
+
+.login-overlay-msg a {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 25px;
+    background: #00d2ff;
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 20px;
+    transition: transform 0.2s;
+}
+
+.login-overlay-msg a:hover {
+    transform: scale(1.05);
+}

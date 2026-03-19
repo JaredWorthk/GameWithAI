@@ -1,0 +1,192 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Snake</title>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <style>
+        body {
+            display: flex; /* Dùng Flexbox để căn giữa toàn bộ trang */
+            flex-direction: column;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4; /* Màu nền nhẹ nhàng */
+        }
+
+        /* Thêm style cho Bảng điểm */
+        .scoreboard {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        #score {
+            color: #e74c3c; /* Màu đỏ nổi bật cho điểm */
+        }
+
+        table {
+            background-color: #fff;
+            border-collapse: collapse; /* Bỏ khoảng trống giữa các ô */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        td {
+            border: 1px solid #ddd; /* Viền mờ đi cho đỡ rối mắt */
+            width: 25px; /* Tăng kích thước ô lên chút cho dễ nhìn */
+            height: 25px;
+        }
+
+        .blue {
+            background: #2ecc71; /* Chuyển rắn sang màu Xanh lá cây cho chuẩn */
+            border-radius: 4px; /* Bo góc con rắn nhẹ */
+        }
+
+        .food {
+            background: #e74c3c;
+            border-radius: 50%; /* Tròn xoe luôn */
+            transform: scale(0.8); /* Thu nhỏ thức ăn lại một chút nằm gọn trong ô */
+        }
+    </style>
+</head>
+<body>
+
+<div class="scoreboard">Điểm của bạn: <span id="score">0</span></div>
+
+<table id="game"></table>
+
+<script>
+    const game = $('#game');
+    let play = {list: [], way: 0};
+    let gameInterval;
+    let food = {};
+    let nextWay = null;
+    let score = 0;
+
+    function init() {
+        for (let i = 0; i < 20; i++) {
+            const tr = $('<tr>');
+            for (let j = 0; j < 20; j++) {
+                const td = $('<td>');
+                td.attr('data-r', i);
+                td.attr('data-c', j);
+                tr.append(td);
+            }
+            game.append(tr);
+        }
+        let i = parseInt(Math.random() * 20);
+        let j = parseInt(Math.random() * 20);
+        play.list.push({i: i, j: j});
+        const cell = $('td[data-r="' + i + '"][data-c="' + j + '"]');
+        cell.addClass('blue');
+        play.way = 0;
+        createFood();
+    }
+
+    function move() {
+        $(document).on("keydown", function (event) {
+            switch (event.key) {
+                case "ArrowUp":
+                case "w":
+                case "W":
+                    nextWay = 0;
+                    break;
+                case "ArrowRight":
+                case "d":
+                case "D":
+                    nextWay = 1;
+                    break;
+                case "ArrowDown":
+                case "s":
+                case "S":
+                    nextWay = 2;
+                    break;
+                case "ArrowLeft":
+                case "a":
+                case "A":
+                    nextWay = 3;
+                    break;
+            }
+        });
+    }
+
+    function createFood() {
+        let on = true;
+        let food_i, food_j;
+        while (on) {
+            on = false;
+            food_i = parseInt(Math.random() * 20);
+            food_j = parseInt(Math.random() * 20);
+            for (let k = 0; k < play.list.length; k++) {
+                if (play.list[k].i === food_i && play.list[k].j === food_j) {
+                    on = true;
+                    break;
+                }
+            }
+        }
+        food = ({i: food_i, j: food_j});
+        $('td[data-r="' + food.i + '"][data-c="' + food.j + '"]').addClass('food');
+    }
+
+    $(document).ready(function () {
+        init();
+        move();
+
+        // Bắt đầu vòng lặp game
+        gameInterval = setInterval(function () {
+            const currentPos = play.list[0];
+
+            let new_i = currentPos.i;
+            let new_j = currentPos.j;
+
+            if (play.way === 0) new_i--;
+            else if (play.way === 1) new_j++;
+            else if (play.way === 2) new_i++;
+            else if (play.way === 3) new_j--;
+
+            // Đi xuyên tường
+            if (new_i > 19) new_i = 0;
+            else if (new_i < 0) new_i = 19;
+            else if (new_j < 0) new_j = 19;
+            else if (new_j > 19) new_j = 0;
+
+            if (nextWay !== null) {
+                if (nextWay === 0 && play.way != 2) play.way = nextWay;
+                else if (nextWay === 1 && play.way != 3) play.way = nextWay;
+                else if (nextWay === 2 && play.way != 0) play.way = nextWay;
+                else if (nextWay === 3 && play.way != 1) play.way = nextWay;
+                nextWay = null;
+            }
+
+            // Kiểm tra cắn vào đuôi (Game Over)
+            for (let i = 1; i < play.list.length; i++) {
+                if (new_i === play.list[i].i && new_j === play.list[i].j) {
+                    clearInterval(gameInterval);
+                    alert("Game over! Tổng điểm: " + score);
+                    window.parent.postMessage({type: 'SAVE_SCORE', score: score}, '*');
+                    return;
+                }
+            }
+
+            // ĐÃ ĐƯA KHỐI NÀY VÀO LẠI BÊN TRONG SETINTERVAL
+            if (new_i === food.i && new_j === food.j) {
+                // Rắn ăn mồi
+                play.list.unshift({i: new_i, j: new_j});
+                $('td[data-r="' + new_i + '"][data-c="' + new_j + '"]').removeClass('food').addClass('blue');
+                score += 10;
+                $('#score').text(score);
+                createFood();
+            } else {
+                // Rắn di chuyển bình thường
+                play.list.unshift({i: new_i, j: new_j});
+                $('td[data-r="' + new_i + '"][data-c="' + new_j + '"]').addClass('blue');
+                const tail = play.list.pop();
+                $('td[data-r="' + tail.i + '"][data-c="' + tail.j + '"]').removeClass('blue');
+            }
+        }, 200); // 200ms để rắn chạy nhanh hơn một chút, 400ms hơi rùa
+    });
+</script>
+
+</body>
+</html>

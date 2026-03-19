@@ -1,0 +1,90 @@
+/* --- 1. CẤU HÌNH TỔNG THỂ --- */
+body {
+    margin: 0;
+    background-color: #2b2b36;
+    color: white;
+    font-family: 'Segoe UI', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh; /* QUAN TRỌNG: Ép body cao đúng bằng màn hình */
+    overflow: hidden; /* Giấu thanh cuộn thừa */
+}
+
+/* --- 2. THANH HEADER GAME --- */
+.game-header {
+    width: 100%;
+    height: 70px; /* Chiều cao cố định */
+    padding: 0 30px;
+    background: #1e1e24;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    box-sizing: border-box; /* Tính cả padding vào width */
+}
+
+/* Chia 3 cột đều nhau để h2 luôn nằm chính giữa */
+.home-wrapper {
+    flex: 1;
+    display: flex;
+    justify-content: flex-start; /* Ép nút Home sát lề trái */
+}
+
+.game-header h2 {
+    flex: 1;
+    text-align: center;
+    margin: 0;
+    color: #00d2ff; /* Màu xanh Neon */
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.score-board {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end; /* Ép Điểm số sát lề phải */
+    font-size: 18px;
+    font-weight: bold;
+    align-items: center;
+}
+
+/* --- 3. NÚT HOME (CHUẨN THEME DARK/NEON) --- */
+.home-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    background: #2b2b36; /* Xám đen tiệp màu nền */
+    color: #b2b2bc; /* Icon xám nhạt */
+    border-radius: 50%;
+    text-decoration: none;
+    font-size: 20px;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.home-btn:hover {
+    color: #00d2ff;
+    border-color: #00d2ff;
+    background: #1e1e24;
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 5px 15px rgba(0, 210, 255, 0.4); /* Phát sáng Neon */
+}
+
+.home-btn:active {
+    transform: translateY(0) scale(0.95);
+}
+
+/* --- 4. KHUNG GAME IFRAME --- */
+.game-frame {
+    width: 95%; /* Chiếm 95% chiều ngang màn hình */
+    max-width: 900px; /* Nhưng không bao giờ phình to quá 1200px */
+    flex-grow: 1; /* QUAN TRỌNG NHẤT: Tự động giãn ra chiếm hết chiều cao còn lại */
+    border: 2px solid #00d2ff;
+    border-radius: 8px;
+    margin: 20px 0;
+    background: #fff;
+    box-shadow: 0 0 20px rgba(0, 210, 255, 0.15); /* Phát sáng nhẹ xung quanh */
+}
