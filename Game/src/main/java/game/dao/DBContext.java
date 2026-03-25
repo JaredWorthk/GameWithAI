@@ -18,9 +18,9 @@ public class DBContext {
             HikariConfig config = new HikariConfig();
 
             // THAY ĐỔI CÁC THÔNG TIN NÀY CHO KHỚP VỚI MÁY CỦA BẠN
-            config.setJdbcUrl("jdbc:mysql://localhost:3306/gamehubdb?useUnicode=true&characterEncoding=UTF-8");
-            config.setUsername("root"); // Tên đăng nhập MySQL của bạn
-            config.setPassword(""); // Mật khẩu MySQL của bạn
+            config.setJdbcUrl(System.getenv("DB_URL"));
+            config.setUsername(System.getenv("DB_USER"));
+            config.setPassword(System.getenv("DB_PASS")); // Mật khẩu MySQL của bạn
 
             // CẤU HÌNH TỐI ƯU CHO 500 CCU TRÊN LAPTOP
             config.setMaximumPoolSize(50); // Thuê sẵn 50 nhân viên. 500 người vào thì 50 người được phục vụ trước, 450 người xếp hàng chờ vài mili-giây.
@@ -45,5 +45,9 @@ public class DBContext {
     // Bất cứ khi nào các trang JSP hay Servlet cần lấy dữ liệu, chỉ cần gọi hàm này
     public static Connection getConnection() throws SQLException {
         return dataSource.getConnection();
+    }
+
+    public static void main(String[] args) {
+
     }
 }

@@ -9,6 +9,6 @@
 <body>
 <h1>404</h1>
 <p>Ối! Trang bạn đang tìm kiếm đã bị lỗ đen vũ trụ nuốt chửng.</p>
-<a href="<%=request.getContextPath()%>/JSP/JSP-User/Main-content.jsp" target="_top">Quay về Trang Chủ</a>
+<a href="<%=request.getContextPath()%>/home" target="_top">Quay về Trang Chủ</a>
 </body>
 </html>
