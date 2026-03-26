@@ -12,9 +12,22 @@ public class GoogleUtils {
 
     public static final String GOOGLE_CLIENT_ID = System.getenv("GOOGLE_CLIENT_ID");
     public static final String GOOGLE_CLIENT_SECRET = System.getenv("GOOGLE_CLIENT_SECRET");
-    public static final String GOOGLE_REDIRECT_URI = "http://localhost:8080/Game_war_exploded/login-google";
     public static final String GOOGLE_LINK_GET_TOKEN = "https://accounts.google.com/o/oauth2/token";
     public static final String GOOGLE_LINK_GET_USER_INFO = "https://www.googleapis.com/oauth2/v1/userinfo?access_token=";
+    public static final String GOOGLE_REDIRECT_URI = getRedirectUri();
+
+    private static String getRedirectUri() {
+        String appUrl = System.getenv("APP_URL");
+
+        // Nếu không có biến APP_URL -> Đang chạy trên máy tính cá nhân (Local)
+        if (appUrl == null || appUrl.isEmpty()) {
+            return "http://localhost:8080/Game_war_exploded/login-google";
+        }
+
+        // Nếu có biến APP_URL -> Đang chạy trên Render
+        // Lưu ý: Render thường deploy ở thư mục gốc, không có đoạn /Game_war_exploded
+        return appUrl + "/login-google";
+    }
 
     public static String getToken(final String code) throws IOException {
         String response = Request.Post(GOOGLE_LINK_GET_TOKEN)

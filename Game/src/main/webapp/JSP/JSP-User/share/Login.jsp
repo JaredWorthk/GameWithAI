@@ -5,6 +5,7 @@
   Time: 6:20 PM
   To change this template use File | Settings | File Templates.
 --%>
+<%@ page import="game.services.login.GoogleUtils" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -41,8 +42,7 @@
 
         <button type="submit">Đăng Nhập</button>
         <div class="separator"><span>Hoặc</span></div>
-        <%--        <a href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile&redirect_uri=http://10.163.26.20.nip.io:8080/Game_war_exploded/login-google&response_type=code&client_id=1041616980521-g6s310dvgn6o3kb0c08gfrmf6ch7votl.apps.googleusercontent.com&approval_prompt=force"--%>
-        <a href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile&redirect_uri=http://localhost:8080/Game_war_exploded/login-google&response_type=code&client_id=1041616980521-g6s310dvgn6o3kb0c08gfrmf6ch7votl.apps.googleusercontent.com&approval_prompt=force"
+        <a href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile&redirect_uri=<%= GoogleUtils.GOOGLE_REDIRECT_URI %>&response_type=code&client_id=<%= GoogleUtils.GOOGLE_CLIENT_ID %>&approval_prompt=force"
            class="btn-google">
             <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google logo">
             Đăng nhập với Google
