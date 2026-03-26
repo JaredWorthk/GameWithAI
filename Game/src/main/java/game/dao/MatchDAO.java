@@ -29,7 +29,7 @@ public class MatchDAO {
             conn.setAutoCommit(false);
 
             // Nhịp 1: Ghi vào sổ lịch sử (Bảng MatchHistory)
-            String sqlHistory = "INSERT INTO MatchHistory (user_id, game_id, score, result) VALUES (?, ?, ?, ?)";
+            String sqlHistory = "INSERT INTO matchhistory (user_id, game_id, score, result) VALUES (?, ?, ?, ?)";
             psHistory = conn.prepareStatement(sqlHistory);
             psHistory.setInt(1, userId);
             psHistory.setInt(2, gameId);
@@ -38,7 +38,7 @@ public class MatchDAO {
             psHistory.executeUpdate();
 
             // Nhịp 2: Cộng dồn điểm vào tài khoản chính (Bảng Users)
-            String sqlUser = "UPDATE Users SET total_score = total_score + ? WHERE user_id = ?";
+            String sqlUser = "UPDATE users SET total_score = total_score + ? WHERE user_id = ?";
             psUser = conn.prepareStatement(sqlUser);
             psUser.setInt(1, scoreEarned);
             psUser.setInt(2, userId);
@@ -85,7 +85,7 @@ public class MatchDAO {
     public int getPersonalHighScore(int userId, int gameId) {
         int highScore = 0;
         // Tìm điểm (score) to nhất (MAX) của người này trong game này
-        String sql = "SELECT MAX(score) as max_score FROM MatchHistory WHERE user_id = ? AND game_id = ?";
+        String sql = "SELECT MAX(score) as max_score FROM matchhistory WHERE user_id = ? AND game_id = ?";
 
         try (Connection conn = DBContext.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {

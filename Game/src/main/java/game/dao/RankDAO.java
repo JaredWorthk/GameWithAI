@@ -15,7 +15,7 @@ public class RankDAO {
         List<RankDTO> list = new ArrayList<>();
         // Cập nhật SQL: Thêm OFFSET
         String sql = "SELECT user_id, display_name, username, avatar_icon, total_score " +
-                     "FROM Users ORDER BY total_score DESC LIMIT ? OFFSET ?";
+                     "FROM users ORDER BY total_score DESC LIMIT ? OFFSET ?";
 
         try (Connection conn = new DBContext().getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -51,8 +51,8 @@ public class RankDAO {
     public List<RankDTO> getTopRanksByGame(int gameId, int limit, int offset) {
         List<RankDTO> list = new ArrayList<>();
         String sql = "SELECT u.user_id, u.display_name, u.username, u.avatar_icon, SUM(m.score) as game_score " +
-                     "FROM Users u " +
-                     "JOIN MatchHistory m ON u.user_id = m.user_id " +
+                     "FROM users u " +
+                     "JOIN matchhistory m ON u.user_id = m.user_id " +
                      "WHERE m.game_id = ? " +
                      "GROUP BY u.user_id, u.display_name, u.username, u.avatar_icon " +
                      "ORDER BY game_score DESC LIMIT ? OFFSET ?";
@@ -90,8 +90,8 @@ public class RankDAO {
     // 3. LẤY HẠNG CỦA CHÍNH TÔI (TẤT CẢ TRÒ CHƠI)
     public RankDTO getMyGlobalRank(String username) {
         String sql = "SELECT user_id, display_name, username, avatar_icon, total_score, " +
-                     "(SELECT COUNT(*) FROM Users u2 WHERE u2.total_score > u.total_score) + 1 AS rank_position " +
-                     "FROM Users u WHERE username = ?";
+                     "(SELECT COUNT(*) FROM users u2 WHERE u2.total_score > u.total_score) + 1 AS rank_position " +
+                     "FROM users u WHERE username = ?";
 
         try (Connection conn = new DBContext().getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -122,8 +122,8 @@ public class RankDAO {
 
         // BƯỚC A: Lấy thông tin user và điểm của user đó trong game này
         String sqlUser = "SELECT u.user_id, u.display_name, u.username, u.avatar_icon, " +
-                         "IFNULL((SELECT SUM(score) FROM MatchHistory WHERE user_id = u.user_id AND game_id = ?), 0) AS game_score " +
-                         "FROM Users u WHERE u.username = ?";
+                         "IFNULL((SELECT SUM(score) FROM matchhistory WHERE user_id = u.user_id AND game_id = ?), 0) AS game_score " +
+                         "FROM users u WHERE u.username = ?";
 
         try (Connection conn = new DBContext().getConnection();
              PreparedStatement ps = conn.prepareStatement(sqlUser)) {
@@ -146,7 +146,7 @@ public class RankDAO {
         // BƯỚC B: Đếm xem có bao nhiêu người điểm cao hơn mình trong game này
         if (myRank != null) {
             String sqlRank = "SELECT COUNT(*) + 1 AS rank_position FROM (" +
-                             "  SELECT SUM(score) as sum_score FROM MatchHistory " +
+                             "  SELECT SUM(score) as sum_score FROM matchhistory " +
                              "  WHERE game_id = ? GROUP BY user_id HAVING sum_score > ?" +
                              ") as higher_scorers";
             try (Connection conn = new DBContext().getConnection();

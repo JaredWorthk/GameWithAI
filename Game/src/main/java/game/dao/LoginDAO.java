@@ -11,7 +11,7 @@ public class LoginDAO {
      */
     public boolean register(String username, String password, String email) {
         // Thêm cột email và display_name (lấy tạm username làm tên hiển thị)
-        String query = "INSERT INTO Users (username, password, email, display_name) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO users (username, password, email, display_name) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = DBContext.getConnection(); // Sử dụng DBContext chung
              PreparedStatement ps = conn.prepareStatement(query)) {
@@ -34,7 +34,7 @@ public class LoginDAO {
      * HÀM ĐĂNG NHẬP (CÁCH TỐI ƯU HƠN): Trả về luôn userId thay vì true/false
      */
     public int loginUser(String username, String password) {
-        String query = "SELECT user_id FROM Users WHERE username = ? AND password = ?";
+        String query = "SELECT user_id FROM users WHERE username = ? AND password = ?";
 
         try (Connection conn = DBContext.getConnection();
              PreparedStatement ps = conn.prepareStatement(query)) {
@@ -84,7 +84,7 @@ public class LoginDAO {
      * Lấy user_id dựa vào email
      */
     public int getUserIdByEmail(String email) {
-        String sql = "SELECT user_id FROM Users WHERE email = ?";
+        String sql = "SELECT user_id FROM users WHERE email = ?";
         try (Connection conn = DBContext.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
