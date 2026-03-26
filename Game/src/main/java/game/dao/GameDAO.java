@@ -14,7 +14,7 @@ public class GameDAO {
      * Lấy thông tin chi tiết của Game theo ID
      */
     public GameDTO getGameById(int id) {
-        String sql = "SELECT * FROM Games WHERE game_id = ?";
+        String sql = "SELECT * FROM games WHERE game_id = ?";
         try (Connection conn = DBContext.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
@@ -42,7 +42,7 @@ public class GameDAO {
      */
     public List<GameDTO> getAllGames() {
         List<GameDTO> list = new ArrayList<>();
-        String sql = "SELECT * FROM Games";
+        String sql = "SELECT * FROM games";
 
         try (Connection conn = DBContext.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql);
